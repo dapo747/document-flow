@@ -1,8 +1,9 @@
 # document_flow.py
 
 class Document:
-    def __init__(self, title):
+    def __init__(self, title, uploader):
         self.title = title
+        self.uploader = uploader
         self.status = 'Draft'
 
     def update_status(self, new_status):
@@ -13,14 +14,17 @@ class Document:
         else:
             print(f"Invalid status: {new_status}")
 
+    def display_info(self):
+        print(f"Title: {self.title}, Status: {self.status}, Uploaded by: {self.uploader}")
+
 class DocumentFlow:
     def __init__(self):
         self.documents = []
 
-    def add_document(self, title):
-        doc = Document(title)
+    def add_document(self, title, uploader):
+        doc = Document(title, uploader)
         self.documents.append(doc)
-        print(f"Document '{title}' added with status '{doc.status}'")
+        print(f"Document '{title}' added with status '{doc.status}' by '{uploader}'")
 
     def update_document_status(self, title, new_status):
         for doc in self.documents:
@@ -35,14 +39,14 @@ class DocumentFlow:
             return
         print("Current Documents Status:")
         for doc in self.documents:
-            print(f"Title: {doc.title}, Status: {doc.status}")
+            doc.display_info()
 
 if __name__ == "__main__":
     flow = DocumentFlow()
 
-    # Add some documents
-    flow.add_document("Document 1")
-    flow.add_document("Document 2")
+    # Add some documents with uploader information
+    flow.add_document("Document 1", "Alice")
+    flow.add_document("Document 2", "Bob")
 
     # Update document status
     flow.update_document_status("Document 1", "Review")
